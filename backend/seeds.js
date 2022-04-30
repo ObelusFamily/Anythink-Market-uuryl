@@ -9,6 +9,7 @@ require("./models/Comment");
 require("./config/passport");
 
 var user = mongoose.model("User");
+var item = mongoose.model("Item");
 
 // Load ENV variables
 dotenv.config({ path: './config/config.env' });
@@ -36,13 +37,23 @@ for (var i = 0; i < numOfUsers; i++) {
     });
 }
 
-console.log(users);
+
+let items = [];
+let numOfItems = 100;
+for (var i = 0; i < numOfItems; i++) {
+    items.push({
+        title: `Item #${i}`,
+        description: `How it works #${i}`,
+        image: "",
+    });
+}
+
 // Import Sample Data In DB
-const importData = async () => {
+const importUsers = async () => {
     try {
         console.log("trying to add users");
         await user.create(users);
-        console.log(`Data successfully imported`.green.inverse);
+        console.log(`Users successfully imported`.green.inverse);
         process.exit();
     } catch (err) {
         console.log(err);
@@ -51,7 +62,22 @@ const importData = async () => {
     }
 }
 
-importData().then();
+const importItems = async () => {
+    try {
+        console.log("trying to add items");
+        await item.create(items);
+        console.log(`Items successfully imported`.green.inverse);
+        process.exit();
+    } catch (err) {
+        console.log(err);
+        process.exit();
+
+    }
+
+}
+
+importUsers();
+importItems();
 
 /* // Delete the data from DB
 const deleteData = async () => {
