@@ -48,36 +48,36 @@ for (var i = 0; i < numOfItems; i++) {
     });
 }
 
+console.log(items);
+
 // Import Sample Data In DB
 const importUsers = async () => {
     try {
         console.log("trying to add users");
         await user.create(users);
         console.log(`Users successfully imported`.green.inverse);
-        process.exit();
     } catch (err) {
         console.log(err);
-        process.exit();
-
     }
-}
-
-const importItems = async () => {
     try {
         console.log("trying to add items");
         await item.create(items);
         console.log(`Items successfully imported`.green.inverse);
-        process.exit();
     } catch (err) {
         console.log(err);
-        process.exit();
 
     }
+
+    process.exit();
+
+}
+
+const importItems = async () => {
+
 
 }
 
 importUsers();
-importItems();
 
 /* // Delete the data from DB
 const deleteData = async () => {
