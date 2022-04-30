@@ -8,7 +8,7 @@ require("./models/Item");
 require("./models/Comment");
 require("./config/passport");
 
-var item = mongoose.model("Item");
+var user = mongoose.model("User");
 
 // Load ENV variables
 dotenv.config({ path: './config/config.env' });
@@ -24,19 +24,30 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 
 // Read The JSON files
-const items = JSON.parse(fs.readFileSync(`${__dirname}/mongo-seed/seeds.json`, 'utf-8'));
+/* const users = JSON.parse(fs.readFileSync(`${__dirname}/mongo-seed/seeds.json`, 'utf-8')); */
 
+let users = [];
+let numOfUsers = 100;
+for (var i = 0; i < numOfUsers; i++) {
+    users.push({
+        username: `user${i}`,
+        email: `${i}@email.com`,
+        password: `${i}`
+    });
+}
+
+console.log(users);
 // Import Sample Data In DB
 const importData = async () => {
     try {
-        console.log("trying to add items");
-        await item.create(items);
+        console.log("trying to add users");
+        await user.create(users);
         console.log(`Data successfully imported`.green.inverse);
         process.exit();
     } catch (err) {
-        console.log("error");
-
         console.log(err);
+        process.exit();
+
     }
 }
 
