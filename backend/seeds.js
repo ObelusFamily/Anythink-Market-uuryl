@@ -10,6 +10,7 @@ require("./config/passport");
 
 var user = mongoose.model("User");
 var item = mongoose.model("Item");
+var comment = mongoose.model("Comment");
 
 // Load ENV variables
 dotenv.config({ path: './config/config.env' });
@@ -48,7 +49,13 @@ for (var i = 0; i < numOfItems; i++) {
     });
 }
 
-console.log(items);
+let comments = [];
+let numOfComments = 100;
+for (var i = 0; i < numOfComments; i++) {
+    comments.push({
+        body: `Comment #${i}`,
+    });
+}
 
 // Import Sample Data In DB
 const importUsers = async () => {
@@ -62,6 +69,14 @@ const importUsers = async () => {
     try {
         console.log("trying to add items");
         await item.create(items);
+        console.log(`Items successfully imported`.green.inverse);
+    } catch (err) {
+        console.log(err);
+
+    }
+    try {
+        console.log("trying to add items");
+        await comment.create(comments);
         console.log(`Items successfully imported`.green.inverse);
     } catch (err) {
         console.log(err);
