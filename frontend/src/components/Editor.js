@@ -49,12 +49,23 @@ class Editor extends React.Component {
 
     this.submitForm = (ev) => {
       ev.preventDefault();
-      const item = {
-        title: this.props.title,
-        description: this.props.description,
-        image: this.props.image,
-        tagList: this.props.tagList,
-      };
+      let item;
+      if (this.props.image === "") {
+        item = {
+          title: this.props.title,
+          description: this.props.description,
+          image: "https://getuikit.com/v2/docs/images/placeholder_200x100.svg",
+          tagList: this.props.tagList,
+        };
+      }
+      else {
+        item = {
+          title: this.props.title,
+          description: this.props.description,
+          image: this.props.image,
+          tagList: this.props.tagList,
+        };
+      }
 
       const slug = { slug: this.props.itemSlug };
       const promise = this.props.itemSlug
